@@ -1,0 +1,6 @@
+#Remove unnecesary files
+
+.settings/*
+.project
+.classpath
+bin/*
