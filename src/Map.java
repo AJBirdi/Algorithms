@@ -1,3 +1,5 @@
+//Way too complicated and too buggy, switched to much simpler Edge, Vertex, and Graph classes
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
