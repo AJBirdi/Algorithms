@@ -1,11 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.Map;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
 
 public class DijkstrasAlgorithm {
 
@@ -28,7 +22,7 @@ public class DijkstrasAlgorithm {
 		unvisitedNodes = new HashSet<Vertex>();
 		visitedNodes = new HashSet<Vertex>();
 		path = new LinkedList<Vertex>();
-		previous = new HashMap<Vertex, Vertex>();
+		previous = new LinkedHashMap<Vertex, Vertex>();
 
 		distance.put(source, 0);
 		previous.put(source, source);
@@ -36,19 +30,18 @@ public class DijkstrasAlgorithm {
 
 		while((source.getId() != destination.getId()) && (source.getId() != -1)){
 			unvisitedNodes.add(source);
+			System.out.println("Source node is " + source + " visitedNodes are " + visitedNodes);
 			Vertex closest = getClosestNeighbor(source);
 		    visitedNodes.add(source);
 		    unvisitedNodes.remove(source);
 		    path.add(source);
-		    previous.put(closest, source);
+		    previous.put(source, closest);
 		    if(source.getId() != destination.getId() && (closest.getId() == -1)){
-				source = previous.get(source);
-				System.out.println("previous node is " + previous.get(source));
+				backtrack();
 			}
 			else{
 				source = closest;
 			}
-		    System.out.println("Destination node is " + destination + " and source node is " + source);
 		}
 		path.add(destination);
 		System.out.println(path);
@@ -59,10 +52,13 @@ public class DijkstrasAlgorithm {
 		List<Vertex> neighbors= new ArrayList<Vertex>();
 
 		for(int x = 0; x < edgeList.size(); x++) {
-			//TODO Allow edgelist destiantion vertices to also be checked against the source
-			if((edgeList.get(x).getSource() == source) && !visited(edgeList.get(x).getDestination())) {
+			if(edgeList.get(x).getSource() == source && !visited(edgeList.get(x).getDestination())) {
 				neighbors.add(edgeList.get(x).getDestination());
 				distance.put(edgeList.get(x).getDestination(), edgeList.get(x).getWeight());
+			}
+			else if(edgeList.get(x).getDestination() == source && !visited(edgeList.get(x).getSource())) {
+                neighbors.add(edgeList.get(x).getSource());
+				distance.put(edgeList.get(x).getSource(), edgeList.get(x).getWeight());
 			}
 		}
 
@@ -91,6 +87,10 @@ public class DijkstrasAlgorithm {
 		else{
 			return new Vertex(-1);
 		}
+	}
+
+	private void backtrack() {
+
 	}
 
 	//Returns whether or not the source node has been visited or not
