@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by aj on 2/23/17.
- */
 public class DijkstraTest {
     private static DijkstraTest ourInstance = new DijkstraTest();
 
@@ -22,15 +19,6 @@ public class DijkstraTest {
 		for(int x = 0; x < 9; x++){
 			vertexList.add(new Vertex(x));
 		}
-		//vertexList.add(new Vertex(0));
-		//vertexList.add(new Vertex(1));
-		//vertexList.add(new Vertex(2));
-		//vertexList.add(new Vertex(3));
-		//vertexList.add(new Vertex(4));
-		//vertexList.add(new Vertex(5));
-		//vertexList.add(new Vertex(6));
-		//vertexList.add(new Vertex(7));
-		//vertexList.add(new Vertex(8));
 
 		edgeList.add(new Edge(vertexList.get(0), vertexList.get(1), 7));
 		edgeList.add(new Edge(vertexList.get(0), vertexList.get(2), 9));
@@ -53,6 +41,5 @@ public class DijkstraTest {
 
 		dijkstra.specificDestination(vertexList.get(3), vertexList.get(0));
 		dijkstra.specificDestination(vertexList.get(0), vertexList.get(6));
-
 	}
 }
