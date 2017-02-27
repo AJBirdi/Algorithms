@@ -22,7 +22,7 @@ public class DijkstrasAlgorithm {
 
 	//Runs the algorithm on a specific start and specific end node
 	public void specificDestination(Vertex source, Vertex destination) {
-	    System.out.println("The source node is " + source + " while the destination is " + destination + ".");
+		System.out.println("The source node is " + source + " while the destination is " + destination + ".");
 		Vertex originalSource = source;
 		isPossible = true;
 		isCompleted = false;
@@ -69,7 +69,7 @@ public class DijkstrasAlgorithm {
 		//Only print out completion information if the path was completed
 		if(isPossible) {
 			path.add(source);
-            System.out.println("The source was " + originalSource +  ", the destination was " + destination
+	System.out.println("The source was " + originalSource +  ", the destination was " + destination
 				+ ", the weight is " + weight + ", and the path was " + path + ".\n");
 		}
 	}
@@ -104,7 +104,7 @@ public class DijkstrasAlgorithm {
 			int closestDistance = distance.get(closest);
 
 			for(int x = 0; x < neighbors.size(); x++) {
-			    //If the current neighbor has a smaller weight, make that neighbor the current closest
+				//If the current neighbor has a smaller weight, make that neighbor the current closest
 				if(distance.get(neighbors.get(x)) < closestDistance) {
 					closest = neighbors.get(x);
 					closestDistance = distance.get(neighbors.get(x));

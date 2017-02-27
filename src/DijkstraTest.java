@@ -2,16 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DijkstraTest {
-    private static DijkstraTest ourInstance = new DijkstraTest();
+	private static DijkstraTest ourInstance = new DijkstraTest();
 
-    public static DijkstraTest getInstance() {
-        return ourInstance;
-    }
+	public static DijkstraTest getInstance() {
+		return ourInstance;
+	}
 
-    private DijkstraTest() {
-    }
+	private DijkstraTest() {
+	}
 
-    public static void main (String[] args) {
+	public static void main (String[] args) {
 		List<Vertex> vertexList = new ArrayList<Vertex>();
 		List<Edge> edgeList = new ArrayList<Edge>();
 
