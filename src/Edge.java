@@ -4,8 +4,7 @@ public class Edge {
     private Vertex destination;
     private int weight;
 
-    public Edge (int id, Vertex source, Vertex destination, int weight) {
-        this.id = id;
+    public Edge (Vertex source, Vertex destination, int weight) {
         this.source = source;
         this.destination = destination;
         this.weight = weight;
@@ -21,14 +20,5 @@ public class Edge {
 
     public Vertex getDestination() {
         return destination;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public String toString() {
-        return "Source: " + source + ", destination: " + destination + ", weight: " + weight;
     }
 }

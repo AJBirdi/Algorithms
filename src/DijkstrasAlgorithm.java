@@ -1,15 +1,19 @@
 import java.util.*;
 import java.util.Map;
 
+
 public class DijkstrasAlgorithm {
 
 	private List<Vertex> vertexList;
 	private List<Edge> edgeList;
 	private List<Vertex> path;
+	private List<Integer> weights;
 	private Set<Vertex> unvisitedNodes;
 	private Set<Vertex> visitedNodes;
 	private Map<Vertex, Integer> distance;
 	private Map<Vertex, Vertex> previous;
+
+	private boolean isPossible;
 
 	public DijkstrasAlgorithm (Graph graph){
 		vertexList = graph.getVertices();
@@ -18,33 +22,44 @@ public class DijkstrasAlgorithm {
 
 	//Runs the algorithm on a specific start and specific end node
 	public void specificDestination(Vertex source, Vertex destination) {
+		Vertex originalSource = source;
+		isPossible = true;
+
         distance = new HashMap<Vertex, Integer>();
 		unvisitedNodes = new HashSet<Vertex>();
 		visitedNodes = new HashSet<Vertex>();
 		path = new LinkedList<Vertex>();
 		previous = new LinkedHashMap<Vertex, Vertex>();
+		weights = new LinkedList<Integer>();
 
 		distance.put(source, 0);
-		previous.put(source, source);
 		unvisitedNodes.add(source);
+		previous.put(source, source);
 
-		while((source.getId() != destination.getId()) && (source.getId() != -1)){
-			unvisitedNodes.add(source);
-			System.out.println("Source node is " + source + " visitedNodes are " + visitedNodes);
-			Vertex closest = getClosestNeighbor(source);
-		    visitedNodes.add(source);
-		    unvisitedNodes.remove(source);
-		    path.add(source);
-		    previous.put(source, closest);
-		    if(source.getId() != destination.getId() && (closest.getId() == -1)){
-				backtrack();
-			}
-			else{
-				source = closest;
-			}
+		while(isPossible) {
+			while((source.getId() != destination.getId()) && (source.getId() != -1)) {
+                unvisitedNodes.add(source);
+                Vertex closest = getClosestNeighbor(source);
+                visitedNodes.add(source);
+                unvisitedNodes.remove(source);
+                path.add(source);
+                previous.put(closest, source);
+                if(source.getId() != destination.getId() && (closest.getId() == -1)){
+                    source = backtrack(source, closest);
+                }
+                else{
+                    source = closest;
+                }
+            }
+            isPossible = false;
 		}
-		path.add(destination);
-		System.out.println(path);
+		Iterator<Integer> iterator = weights.iterator();
+		int weight = 0;
+		while(iterator.hasNext()){
+			weight += iterator.next();
+		}
+		path.add(source);
+		System.out.println("The source was " + originalSource +  ", the destination was " + destination + ", the weight is " + weight + ", and the path was " + path + ".\n");
 	}
 
 	//Returns a list of all the nodes that neighbor the source
@@ -81,6 +96,7 @@ public class DijkstrasAlgorithm {
 		    		closestDistance = distance.get(neighbors.get(x));
 		    	}
 		    }
+			weights.add(closestDistance);
 		    System.out.println("Closest node is " + closest + "\nDistance is " + closestDistance);
 		    return closest;
 		}
@@ -89,8 +105,28 @@ public class DijkstrasAlgorithm {
 		}
 	}
 
-	private void backtrack() {
+	//Moves 1 node back while marking the current node as visited if the current node has no vertices it can visit
+	//  but the target node has not been reached
+	private Vertex backtrack(Vertex source, Vertex closest) {
+		previous.remove(closest);
 
+        if(previous.size() >= 1) {
+		    Vertex tempSource = previous.get(source);
+            visitedNodes.remove(previous.get(source));
+		    previous.remove(source);
+		    System.out.print("I backtracked from " + source);
+		    source = tempSource;
+		    weights.remove(weights.size() - 1);
+		    //Double removal because when specificDestination continues, it will add the vertex back the to the path
+		    path.remove(path.size() - 1);
+		    path.remove(path.size() - 1);
+		}
+		else{
+		    System.out.println("No possible solution.");
+		    isPossible = false;
+		}
+		System.out.println(" back to " + source + ".");
+		return source;
 	}
 
 	//Returns whether or not the source node has been visited or not
