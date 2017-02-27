@@ -5,6 +5,7 @@
 .classpath
 .gitignore
 /bin
+bin/*
 
 .idea/*
 Algorithms.iml
