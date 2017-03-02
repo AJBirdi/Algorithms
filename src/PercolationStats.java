@@ -14,7 +14,7 @@ public class PercolationStats {
     private int trialCount;
     private double[] percThreshold;
 
-    public PercolationStats (int n, int trials) {
+    public PercolationStats(int n, int trials) {
         if (n <= 0 || trials <= 0) {
             throw new IllegalArgumentException();
         }
@@ -64,7 +64,7 @@ public class PercolationStats {
 
     public static void main(String[] args) {
         PercolationStats percStats;
-        if(args.length != 0) {
+        if (args.length != 0) {
             percStats = new PercolationStats(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         }
         else {

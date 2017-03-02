@@ -1,8 +1,5 @@
 import java.util.List;
 
-/**
- * Created by aj on 2/20/17.
- */
 public class Graph {
     private List<Vertex> vertices;
     private List<Edge> edges;
