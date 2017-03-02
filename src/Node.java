@@ -1,9 +1,9 @@
 
 public class Node {
-    int id;
-    Node leftChild;
-    Node rightChild;
-    Node parent;
+    private int id;
+    private Node leftChild;
+    private Node rightChild;
+    private Node parent;
 
     public Node(int id) {
         this.id = id;
@@ -35,6 +35,19 @@ public class Node {
 
     public void setParent(Node parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if(this == object){
+            return true;
+        }
+
+        Node obj = (Node) object;
+        if(this.getId() == obj.getId() && this.getLeftChild() == obj.getLeftChild() && this.getRightChild() == obj.getRightChild() && this.getParent() == obj.getParent()) {
+            return true;
+        }
+        return false;
     }
 
     @Override

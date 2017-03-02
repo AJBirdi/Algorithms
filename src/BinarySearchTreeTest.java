@@ -12,11 +12,8 @@ public class BinarySearchTreeTest {
         BST.insert(new Node(14));
         BST.insert(new Node(13));
 
-        System.out.println(BST.getRoot().getLeftChild());
-        System.out.println(BST.getRoot().getRightChild());
-        System.out.println(BST.find(6));
-        //System.out.println(BST.delete(6));
-        //System.out.println(BST.find(6));
-        System.out.println(BST.find(6).getParent().getParent().getParent());
+        System.out.println(BST.find(10));
+        BST.delete(10);
+        System.out.println(BST.find(8).getRightChild().getLeftChild().getLeftChild());
     }
 }
