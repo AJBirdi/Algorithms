@@ -1,6 +1,7 @@
 
 public class Node {
     private int id;
+    private int childCount;
     private Node leftChild;
     private Node rightChild;
     private Node parent;
@@ -35,6 +36,19 @@ public class Node {
 
     public void setParent(Node parent) {
         this.parent = parent;
+    }
+
+    public int getChildCount() {
+        if(leftChild == null && rightChild == null) {
+            return 0;
+        }
+
+        if((leftChild != null && rightChild == null) || (leftChild == null && rightChild != null)) {
+            return 1;
+        }
+        else {
+            return 2;
+        }
     }
 
     @Override

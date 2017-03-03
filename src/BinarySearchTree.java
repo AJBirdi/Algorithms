@@ -15,6 +15,7 @@ public class BinarySearchTree {
     //If it doesn't exist, return a node with ID -1
     public Node find(int id) {
         Node current = root;
+
         while(current != null) {
             if(id == current.getId()) {
                 return current;
@@ -29,15 +30,18 @@ public class BinarySearchTree {
         return new Node(-1);
     }
 
+    //TODO Refactor insert method into methods that insert based on left and right subtree
     //Provided a node, insert the node into the tree
     public void insert(Node insert) {
         Node current = root;
         boolean inserted = false;
+
         while(current != null && !inserted) {
             if (insert.getId() < current.getId()) {
                 if (current.getLeftChild() != null) {
                     current = current.getLeftChild();
-                } else {
+                }
+                else {
                     current.setLeftChild(insert);
                     insert.setParent(current);
                     inserted = true;
@@ -46,7 +50,8 @@ public class BinarySearchTree {
             else if (insert.getId() > current.getId()) {
                 if (current.getRightChild() != null) {
                     current = current.getRightChild();
-                } else {
+                }
+                else {
                     current.setRightChild(insert);
                     insert.setParent(current);
                     inserted = true;
@@ -61,6 +66,7 @@ public class BinarySearchTree {
         }
 
         Node toDelete = find(id);
+
         //If the node has no children
         if(toDelete.getRightChild() == null && toDelete.getLeftChild() == null) {
             return deleteNoChildren(toDelete);
@@ -105,6 +111,7 @@ public class BinarySearchTree {
         }
 
         temp.setParent((toDelete.getParent()));
+
         if(toDelete.getParent().getLeftChild() == toDelete) {
             toDelete.getParent().setLeftChild(temp);
             return true;
@@ -118,12 +125,28 @@ public class BinarySearchTree {
 
     //Deletes a node with two children
     private boolean deleteTwoChildren(Node toDelete) {
-        Node successor = getSuccessor(toDelete);
+        getSuccesor(toDelete);
+
         return false;
     }
 
-    private Node getSuccessor(Node current) {
-        return current;
+    //Gets smallest node in the right subtree of the node to be deleted
+    private Node getSuccesor(Node toDelete) {
+        Node smallest = toDelete;
+        Node original = toDelete;
+        Node current = toDelete;
+
+        current = current.getRightChild();
+
+        while(current.getChildCount() > 0) {
+            current = current.getLeftChild();
+        }
+        smallest = current;
+
+        while((current.getParent() != original) && (current.getParent().getRightChild() != original)) {
+
+        }
+        return toDelete;
     }
 
     //TODO Secondary goal
@@ -141,7 +164,7 @@ public class BinarySearchTree {
 
     }
 
-    //TODO Next goal
+    //TODO Primary goal
     public void breadthFirstSearch() {
 
     }
