@@ -26,8 +26,6 @@ public class BinarySearchTreeTest {
         BST.insert(new Node(15));
         BST.insert(new Node(20));
 
-        System.out.println(BSTOperations.inOrderTraversal(BST));
-        System.out.println(BSTOperations.preOrderTraversal(BST));
-        System.out.println(BSTOperations.postOrderTraversal(BST));
+        System.out.println(BSTOperations.breadthFirstSearch(BST));
     }
 }

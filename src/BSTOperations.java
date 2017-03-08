@@ -9,11 +9,31 @@ public class BSTOperations {
     private static List<Node> inorder;
     private static List<Node> preorder;
     private static List<Node> postorder;
+    private static List<Node> breadthFirst;
 
-    //public static BinarySearchTree DayStoutWarren(BinarySearchTree BST) {
-    //    inOrderTraversal(BST);
-    //    return BST;
-    //}
+    //Returns a breadth-first linked list of nodes from a given binary search tree
+    public static List<Node> breadthFirstSearch(BinarySearchTree BST) {
+        breadthFirst = new LinkedList<Node>();
+        Node currentNode;
+        LinkedList<Node> currentNodes = new LinkedList();
+
+        //Add the root node to get started
+        currentNodes.add(BST.getRoot());
+        //If they aren't null, add them to the queue, loop through, then remove the left-most child, add it to the
+        // list, then continue looping until there are no more nodes
+        while(currentNodes.size() > 0) {
+            currentNode = currentNodes.removeFirst();
+            breadthFirst.add(currentNode);
+            if(currentNode.getLeftChild() != null) {
+                currentNodes.add(currentNode.getLeftChild());
+            }
+            if(currentNode.getRightChild() != null) {
+                currentNodes.add(currentNode.getRightChild());
+            }
+        }
+        return breadthFirst;
+    }
+
     //Returns a pre-order linked list of nodes from a given binary search tree
     public static List<Node> preOrderTraversal(BinarySearchTree BST) {
         preorder = new LinkedList<Node>();
@@ -33,7 +53,6 @@ public class BSTOperations {
             preOrderTraversal(current.getLeftChild());
             preOrderTraversal(current.getRightChild());
         }
-
         return true;
     }
 
