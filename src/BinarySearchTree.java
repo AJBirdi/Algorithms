@@ -233,18 +233,6 @@ public class BinarySearchTree {
     }
 
     //TODO Secondary goal
-    //public void inorderTraversal() {
-    //}
-
-    //TODO Secondary goal
-    //public void postorderTraversal() {
-    //}
-
-    //TODO Secondary goal
-    //public void preorderTraversal() {
-    //}
-
-    //TODO Secondary goal
     //public void breadthFirstSearch() {
     //}
 }
