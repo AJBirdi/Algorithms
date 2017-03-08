@@ -1,3 +1,4 @@
+//Basic binary search tree that supports insert, find, and delete operations.
 
 public class BinarySearchTree {
 
@@ -74,6 +75,7 @@ public class BinarySearchTree {
         }
     }
 
+    //Delete a node given it's ID
     public boolean delete(int id) {
         //Make sure the node exists
         if(find(id).getId() == -1) {
@@ -105,6 +107,7 @@ public class BinarySearchTree {
         //If the node is the root
         if(toDelete.getParent() == null) {
            System.out.println("Can't delete the root node.");
+           return false;
         }
 
         //If the node has a parent
@@ -241,7 +244,7 @@ public class BinarySearchTree {
     //public void preorderTraversal() {
     //}
 
-    //TODO Primary goal
+    //TODO Secondary goal
     //public void breadthFirstSearch() {
     //}
 }
