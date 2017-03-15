@@ -1,11 +1,16 @@
 //Basic binary search tree that supports insert, find, and delete operations.
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BinarySearchTree {
 
     private Node root;
+    private Set<Node> nodes;
 
     public BinarySearchTree (Node root) {
        this.root = root;
+       nodes = new HashSet<Node>();
     }
 
     public Node getRoot() {
@@ -40,12 +45,11 @@ public class BinarySearchTree {
     }
 
     //Provided a node, insert the node into the tree
-    public void insert(Node insert) {
+    public boolean insert(Node insert) {
         Node current = root;
-        boolean inserted = false;
 
         //Run while current hasn't reached the bottom of the tree and a node hasn't been inserted
-        while(current != null && !inserted) {
+        while(current != null) {
             //If the current node has a larger ID than the node that will be inserted
             if (insert.getId() < current.getId()) {
                 //If the current node's left child is not null
@@ -54,9 +58,17 @@ public class BinarySearchTree {
                 }
                 //If the current node's right child is null
                 else {
-                    current.setLeftChild(insert);
-                    insert.setParent(current);
-                    inserted = true;
+                    //Make sure there are no duplicates
+                    if(!nodes.contains(insert)) {
+                        current.setLeftChild(insert);
+                        insert.setParent(current);
+                        nodes.add(insert);
+                        return true;
+                    }
+                    //Return false since the node is already inside the tree
+                    else {
+                        return false;
+                    }
                 }
             }
             //If the current node has a smaller ID than the node that will be inserted
@@ -67,12 +79,25 @@ public class BinarySearchTree {
                 }
                 //If the current node's left child is not null
                 else {
-                    current.setRightChild(insert);
-                    insert.setParent(current);
-                    inserted = true;
+                    //Make sure there are no duplicates
+                    if(!nodes.contains(insert)) {
+                        current.setRightChild(insert);
+                        insert.setParent(current);
+                        nodes.add(insert);
+                        return true;
+                    }
+                    //Return false since the node is already inside the tree
+                    else {
+                        return false;
+                    }
                 }
             }
+            //If the node has the same ID as the root
+            else{
+                return false;
+            }
         }
+        return false;
     }
 
     //Delete a node given it's ID

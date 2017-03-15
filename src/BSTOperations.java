@@ -11,11 +11,15 @@ public class BSTOperations {
     private static List<Node> postorder;
     private static List<Node> breadthFirst;
 
+    public static BinarySearchTree balance(BinarySearchTree BST) {
+        return BST;
+    }
+
     //Returns a breadth-first linked list of nodes from a given binary search tree
     public static List<Node> breadthFirstSearch(BinarySearchTree BST) {
         breadthFirst = new LinkedList<Node>();
-        Node currentNode;
         LinkedList<Node> currentNodes = new LinkedList();
+        Node currentNode;
 
         //Add the root node to get started
         currentNodes.add(BST.getRoot());
@@ -98,5 +102,18 @@ public class BSTOperations {
             postorder.add(current);
         }
         return true;
+    }
+
+    public static int getHeight(BinarySearchTree BST) {
+        return getHeight(BST.getRoot());
+    }
+
+    private static int getHeight(Node current) {
+        if(current == null) {
+            return 0;
+        }
+        else {
+            return Math.max(getHeight(current.getLeftChild()), getHeight(current.getRightChild())) + 1;
+        }
     }
 }
