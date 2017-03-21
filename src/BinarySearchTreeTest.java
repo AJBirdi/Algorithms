@@ -35,6 +35,6 @@ public class BinarySearchTreeTest {
         BST.insert(new Node(8));
         BST.insert(new Node(11));
 
-        BSTOperations.rightRotation(BST.find(12));
+        BST.balance();
     }
 }

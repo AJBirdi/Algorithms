@@ -10,17 +10,7 @@ public class BSTOperations {
     private static List<Node> preorder;
     private static List<Node> postorder;
 
-    public static BinarySearchTree balance(BinarySearchTree BST) {
-        return BST;
-    }
 
-    public static void leftRotation(Node toRotate) {
-    }
-
-    public static void rightRotation(Node toRotate) {
-        Node placeholder = toRotate.getLeftChild();
-        System.out.println(placeholder.getLeftChild());
-    }
 
     //Returns a breadth-first linked list of nodes from a given binary search tree
     public static List<Node> breadthFirstSearch(BinarySearchTree BST) {

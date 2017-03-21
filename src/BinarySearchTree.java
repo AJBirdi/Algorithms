@@ -1,5 +1,7 @@
 //Basic binary search tree that supports insert, find, and delete operations.
 
+import edu.princeton.cs.algs4.BST;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -255,5 +257,64 @@ public class BinarySearchTree {
             current = current.getLeftChild();
         }
         return current;
+    }
+
+    public BinarySearchTree balance() {
+        rightRotation(getRoot());
+        return new BinarySearchTree(new Node(-1));
+    }
+
+    public void leftRotation(Node toRotate) {
+    }
+
+    public void rightRotation(Node toRotate) {
+        int toRotateID = toRotate.getId();
+        int toRotateLeftChildID= toRotate.getLeftChild().getId();
+        boolean isRoot = false;
+
+        if(toRotate.getParent() == null) {
+            isRoot = true;
+        }
+
+        Node toRotateLeftChild = toRotate.getLeftChild();
+        Node temp = new Node(-1);
+
+        //Swap toRotate and toRotate's left child
+        temp.setLeftChild(toRotateLeftChild.getLeftChild());
+        temp.setRightChild(toRotateLeftChild.getRightChild());
+
+        toRotateLeftChild.setRightChild(toRotate.getRightChild());
+        toRotateLeftChild.setLeftChild(toRotate);
+        toRotateLeftChild.setParent(toRotate.getParent());
+        toRotateLeftChild.getRightChild().setParent(toRotateLeftChild);
+
+        toRotate.setLeftChild(temp.getLeftChild());
+        toRotate.setRightChild(temp.getRightChild());
+        toRotate.setParent(toRotateLeftChild);
+
+        //If the rotation is happening on the root node, make sure to change the root
+        if(isRoot) {
+            setRoot(toRotateLeftChild);
+        }
+
+        //Remove toRotate, put it's current left child in it's place, and make it's right child the right child of
+        // it's left child
+        toRotateLeftChild.setLeftChild(toRotate.getLeftChild());
+        toRotateLeftChild.getLeftChild().setParent(toRotateLeftChild);
+        toRotateLeftChild.getLeftChild().setRightChild(toRotate.getRightChild());
+        toRotate.getLeftChild().getRightChild().setParent(toRotate.getLeftChild());
+
+        toRotate.setLeftChild(null);
+        toRotate.setRightChild(null);
+        toRotate.setParent(null);
+
+        //Add toRotate as toRotateLeftChild's right child and make toRotateLeftChild's right child toRotate's right child
+        toRotate.setRightChild(toRotateLeftChild.getRightChild());
+        toRotate.getRightChild().setParent(toRotate);
+        toRotate.setParent(toRotateLeftChild);
+
+        toRotateLeftChild.setRightChild(toRotate);
+
+        System.out.println(BSTOperations.breadthFirstSearch(this));
     }
 }

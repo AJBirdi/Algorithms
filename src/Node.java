@@ -1,7 +1,6 @@
 
 public class Node {
     private int id;
-    private int childCount;
     private Node leftChild;
     private Node rightChild;
     private Node parent;
