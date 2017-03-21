@@ -93,7 +93,7 @@ public class BinarySearchTree {
                 }
             }
             //If the node has the same ID as the root
-            else{
+            else {
                 return false;
             }
         }
@@ -256,8 +256,4 @@ public class BinarySearchTree {
         }
         return current;
     }
-
-    //TODO Secondary goal
-    //public void breadthFirstSearch() {
-    //}
 }

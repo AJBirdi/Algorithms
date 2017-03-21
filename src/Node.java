@@ -51,6 +51,24 @@ public class Node {
         }
     }
 
+    //Returns string representation of children
+    public String getChildren() {
+        if(getChildCount() == 2) {
+            return "Left child: " + getLeftChild() + "\nRight child: " + getRightChild();
+        }
+        else if(getChildCount() == 1) {
+            if(getRightChild() == null) {
+                return "Left child: " + getLeftChild();
+            }
+            else {
+                return "Right child: " + getRightChild();
+            }
+        }
+        else {
+            return "No childrend.";
+        }
+    }
+
     @Override
     public boolean equals(Object object) {
         if(this == object){
