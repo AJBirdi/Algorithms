@@ -315,6 +315,10 @@ public class BinarySearchTree {
 
         toRotateLeftChild.setRightChild(toRotate);
 
-        System.out.println(BSTOperations.breadthFirstSearch(this));
+        //Make toRotateLeftChild's left child's right child toRotate's left child
+        toRotate.setLeftChild(toRotateLeftChild.getLeftChild().getRightChild());
+        toRotate.getLeftChild().setParent(toRotate);
+
+        System.out.println(toRotateLeftChild.getRightChild().getChildren());
     }
 }
