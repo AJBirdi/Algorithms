@@ -64,7 +64,7 @@ public class Node {
             }
         }
         else {
-            return "No childrend.";
+            return "No children.";
         }
     }
 

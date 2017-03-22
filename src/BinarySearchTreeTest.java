@@ -29,11 +29,19 @@ public class BinarySearchTreeTest {
         //BST.insert(new Node(100));
         //BSTOperations.balance(BST);
 
-        BinarySearchTree BST = new BinarySearchTree(new Node(12));
-        BST.insert(new Node(10));
-        BST.insert(new Node(13));
+        //Tree that will have a left rotation performed on it
+        BinarySearchTree BST = new BinarySearchTree(new Node(10));
         BST.insert(new Node(8));
+        BST.insert(new Node(12));
         BST.insert(new Node(11));
+        BST.insert(new Node(13));
+
+        //Tree that will have a right rotation performed on it
+        //BinarySearchTree BST = new BinarySearchTree(new Node(12));
+        //BST.insert(new Node(10));
+        //BST.insert(new Node(13));
+        //BST.insert(new Node(8));
+        //BST.insert(new Node(11));
 
         BST.balance();
     }
