@@ -256,26 +256,54 @@ public class BinarySearchTree {
 		return current;
 	}
 
-	public BinarySearchTree balance() {
-		leftRotation(getRoot());
-		return new BinarySearchTree(new Node(-1));
+	public void balance() {
+		//treeToVine();
+		rightRotation(getRoot());
 	}
 
-	//private void treeToVine() {
+	private boolean treeToVine() {
+		Node current = getRoot();
+		int lowestID = current.getId();
 
-	//}
+		//Find the smallest child's ID
+		while(current.getLeftChild() != null) {
+			current = current.getLeftChild();
+			lowestID = current.getId();
+		}
 
-    //TODO Refactor rotation methods together
+		//Reset current node back to the root
+		current = getRoot();
+
+		//Rotate until the lowest node is the root
+		while(current.getId() != lowestID) {
+			rightRotation(getRoot());
+			current = getRoot();
+		}
+
+		while(current != null && (current.getLeftChild() != null || current.getRightChild() != null)) {
+		    if(current.getLeftChild() == null && current.getRightChild() == null) {
+		    	return false;
+			}
+
+			while(current.getLeftChild() != null) {
+				rightRotation(current);
+			}
+			current = current.getRightChild();
+		}
+		return true;
+	}
+
+    //TODO Refactor rotation methods together?
 
 	private boolean leftRotation(Node toRotate) {
 		boolean isRoot = false;
 
-		//
+		//Make sure you change the root if the node we're rotating is the root
 		if(toRotate.getParent() == null) {
 			isRoot = true;
 		}
 
-		//
+		//Has to have a right child to rotate it
 		if(toRotate.getRightChild() == null) {
 			return false;
 		}
@@ -298,7 +326,7 @@ public class BinarySearchTree {
         toRotate.getLeftChild().setParent(toRotate);
         toRotate.getRightChild().setParent(toRotate);
 
-        //
+		//If the rotation is happening on the root node, make sure to change the root
         if(isRoot) {
         	setRoot(toRotateRightChild);
 		}
@@ -355,8 +383,18 @@ public class BinarySearchTree {
 		toRotate.setLeftChild(temp.getLeftChild());
 		toRotate.setRightChild(temp.getRightChild());
 		toRotate.setParent(toRotateLeftChild);
-		toRotate.getLeftChild().setParent(toRotate);
-		toRotate.getRightChild().setParent(toRotate);
+
+		if(toRotate.getLeftChild() != null) {
+			toRotate.getLeftChild().setParent(toRotate);
+		}
+
+		if(toRotate.getRightChild() != null) {
+			toRotate.getRightChild().setParent(toRotate);
+		}
+
+		if(!isRoot) {
+			toRotateLeftChild.getParent().setRightChild(toRotateLeftChild);
+		}
 
 		//If the rotation is happening on the root node, make sure to change the root
 		if(isRoot) {
@@ -366,10 +404,15 @@ public class BinarySearchTree {
 		//Remove toRotate, put it's current left child in it's place, and make it's right child the right child of
 		// it's left child
 		toRotateLeftChild.setLeftChild(toRotate.getLeftChild());
-		toRotateLeftChild.getLeftChild().setParent(toRotateLeftChild);
-		toRotateLeftChild.getLeftChild().setRightChild(toRotate.getRightChild());
-		toRotate.getLeftChild().getRightChild().setParent(toRotate.getLeftChild());
 
+		if(toRotateLeftChild.getLeftChild() != null) {
+			toRotateLeftChild.getLeftChild().setParent(toRotateLeftChild);
+            toRotateLeftChild.getLeftChild().setRightChild(toRotate.getRightChild());
+		}
+
+		if(toRotate.getLeftChild() != null && toRotate.getLeftChild().getRightChild() != null) {
+			toRotate.getLeftChild().getRightChild().setParent(toRotate.getLeftChild());
+		}
 		toRotate.setLeftChild(null);
 		toRotate.setRightChild(null);
 		toRotate.setParent(null);
@@ -382,10 +425,15 @@ public class BinarySearchTree {
 		toRotateLeftChild.setRightChild(toRotate);
 
 		//Make toRotateLeftChild's left child's right child toRotate's left child
-		toRotate.setLeftChild(toRotateLeftChild.getLeftChild().getRightChild());
-		toRotate.getLeftChild().setParent(toRotate);
+        if(toRotateLeftChild.getLeftChild() != null) {
+			toRotate.setLeftChild(toRotateLeftChild.getLeftChild().getRightChild());
+			toRotateLeftChild.getLeftChild().setRightChild(null);
+			System.out.println(find(3));
+		}
 
-		toRotateLeftChild.getLeftChild().setRightChild(null);
+		if(toRotate.getLeftChild() != null) {
+            toRotate.getLeftChild().setParent(toRotate);
+		}
 		return true;
 	}
 }
