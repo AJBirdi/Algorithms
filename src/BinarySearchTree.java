@@ -261,7 +261,9 @@ public class BinarySearchTree {
 		Node pseudoRoot = new Node(Integer.MIN_VALUE);
 		pseudoRoot.setRightChild(getRoot());
 		setRoot(pseudoRoot);
-		treeToVine();
+		swapNodes(find(5), find(10));
+		System.out.println(getRoot().getChildren());
+		//treeToVine();
 	}
 
 	private void treeToVine() {
@@ -277,6 +279,8 @@ public class BinarySearchTree {
 			//Do a right rotation on remaining
 			else {
 				Node temp = remaining.getLeftChild();
+				System.out.println(find(6));
+				swapNodes(temp, temp.getRightChild());
 				remaining.setLeftChild(temp.getRightChild());
 
 				if (remaining.getLeftChild() != null) {
@@ -288,6 +292,43 @@ public class BinarySearchTree {
 				temp.setParent(tail);
 			}
 		}
+	}
+
+	//Swaps two nodes for rotations
+	private boolean swapNodes(Node upper, Node lower) {
+	    if(find(upper.getId()).getId() == -1 || find(lower.getId()).getId() == -1) {
+			return false;
+		}
+
+		Node tempUpper = new Node(-1);
+		Node upperParent = upper.getParent();
+
+		tempUpper.setLeftChild(upper.getLeftChild());
+		tempUpper.setRightChild(upper.getRightChild());
+		tempUpper.setParent(upper.getParent());
+
+		upper.setLeftChild(lower.getLeftChild());
+		upper.setRightChild(lower.getRightChild());
+		upper.setParent(lower.getParent());
+
+		if(lower.getParent().getLeftChild() != lower) {
+			upper.getParent().setRightChild(upper);
+		}
+		else {
+			upper.getParent().setLeftChild(upper);
+		}
+
+		lower.setLeftChild(tempUpper.getLeftChild());
+		lower.setRightChild(tempUpper.getRightChild());
+		lower.setParent(tempUpper.getParent());
+
+		if(upperParent.getLeftChild() != upper) {
+			lower.getParent().setRightChild(lower);
+		}
+		else {
+			lower.getParent().setLeftChild(lower);
+		}
+		return true;
 	}
 
 	private boolean leftRotation(Node toRotate) {

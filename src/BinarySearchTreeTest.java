@@ -16,11 +16,14 @@ public class BinarySearchTreeTest {
         //BST.insert(new Node(15));
         //BST.insert(new Node(20));
 
-        BinarySearchTree BST = new BinarySearchTree(new Node(10));
-        BST.insert(new Node(8));
-        BST.insert(new Node(12));
-        BST.insert(new Node(11));
-        BST.insert(new Node(13));
+        //BinarySearchTree BST = new BinarySearchTree(new Node(10));
+        //BST.insert(new Node(8));
+        //BST.insert(new Node(12));
+        //BST.insert(new Node(11));
+        //BST.insert(new Node(13));
+
+        BinarySearchTree BST = new BinarySearchTree(new Node(5));
+        BST.insert(new Node(10));
 
         BST.balance();
     }
